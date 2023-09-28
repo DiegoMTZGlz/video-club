@@ -23,7 +23,7 @@ docker build -t videoclub .
 para despues ejecutarla con:
 
 ```
-sudo docker run -dti -p80:80 videoclub
+docker run -dti -p80:80 videoclub
 ```
 o acceder a:
 
