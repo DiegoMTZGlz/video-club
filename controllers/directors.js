@@ -12,7 +12,7 @@ function create(req,res,next){
 }
 
 function list(req,res,next){
-    Director.findAll({include: "movies"}).then(objects => res.json(objects)).catch(error => res.send(error));
+    Director.findAll({include: 'movies'}).then(objects => res.json(objects)).catch(error => res.send(error));
 }
 
 function index(req,res,next){

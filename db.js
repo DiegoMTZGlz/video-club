@@ -1,11 +1,12 @@
 const Sequelize = require ('sequelize');
 
-const directorModel = require('./models/director')
-const actorModel = require('./models/actor')
-const genreModel = require('./models/genre')
-const movieModel = require('./models/movie')
-const memberModel = require('./models/member')
-const movieActorModel = require('./models/movieActor')
+const directorModel = require('./models/director');
+const actorModel = require('./models/actor');
+const genreModel = require('./models/genre');
+const movieModel = require('./models/movie');
+const memberModel = require('./models/member');
+const movieActorModel = require('./models/movieActor');
+const copyModel = require('./models/copy');
 
 /*
     1.- Nombre de la base de datos
@@ -25,6 +26,7 @@ const Genre = genreModel(sequelize, Sequelize);
 const Movie = movieModel(sequelize, Sequelize);
 const Member = memberModel(sequelize, Sequelize);
 const MovieActor = movieActorModel(sequelize, Sequelize);
+const Copy = copyModel(sequelize, Sequelize);
 
 //Un genero puede tener muchas peliculas
 Genre.hasMany(Movie, {as:'movies'});
@@ -35,6 +37,11 @@ Movie.belongsTo(Genre, {as:'genre'});
 Director.hasMany(Movie, {as:'movies'})
 //Una pelicula tiene un director
 Movie.belongsTo(Director, {as: 'director'})
+
+//Una pelicula puede tener muchas copias
+Movie.hasMany(Copy, {as:'copies'});
+//Una copia es de una pelicula
+Copy.belongsTo(Movie, {as:'movie'})
 
 //Un actor participa en muchas peliculas
 MovieActor.belongsTo(Movie, {foreignKey: 'movieId'})
@@ -59,4 +66,4 @@ sequelize.sync({
     console.log('Base de datos sincornizada.')
 });
 
-module.exports = {Director, Actor, Genre, Movie, Member};
+module.exports = {Director, Actor, Genre, Movie, Member, Copy};

@@ -11,6 +11,7 @@ var actorsRouter = require('./routes/actors');
 var membersRouter = require('./routes/members');
 var genresRouter = require('./routes/genres');
 var moviesRouter = require('./routes/movies');
+var copiesRouter = require('./routes/copies');
 
 var app = express();
 
@@ -31,6 +32,7 @@ app.use('/actors', actorsRouter);
 app.use('/members', membersRouter);
 app.use('/genres', genresRouter);
 app.use('/movies', moviesRouter);
+app.use('/copies', copiesRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
