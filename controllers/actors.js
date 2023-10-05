@@ -1,28 +1,28 @@
 const express = require('express');
-const { Director } = require('../db');
+const { Actor } = require('../db');
 
 function create(req,res,next){
     const name = req.body.name;
     const lastName = req.body.lastName;
 
-    Director.create({
+    Actor.create({
         name: name,
         lastName: lastName
     }).then(object => res.json(object)).catch(error => res.send(error));
 }
 
 function list(req,res,next){
-    Director.findAll({include: "movies"}).then(objects => res.json(objects)).catch(error => res.send(error));
+    Actor.findAll().then(objects => res.json(objects)).catch(error => res.send(error));
 }
 
 function index(req,res,next){
     const id = req.params.id;
-    Director.findByPk(id).then(object => res.json(object)).catch(error => res.send(error));
+    Actor.findByPk(id).then(object => res.json(object)).catch(error => res.send(error));
 }
 
 function replace(req,res,next){
     const id = req.params.id;
-    Director.findByPk(id).then(object =>{
+    Actor.findByPk(id).then(object =>{
         const name = req.body.name ? req.body.name : "";
         const lastName = req.body.lastName ? req.body.lastName : "";
         object.update({
@@ -34,7 +34,7 @@ function replace(req,res,next){
 
 function update(req,res,next){
     const id = req.params.id;
-    Director.findByPk(id).then(object =>{
+    Actor.findByPk(id).then(object =>{
         const name = req.body.name ? req.body.name : object.name;
         const lastName = req.body.lastName ? req.body.lastName : object.lastName;
         object.update({
@@ -46,7 +46,7 @@ function update(req,res,next){
 
 function destroy(req,res,next){
     const id = req.params.id;
-    Director.destroy({where : {id: id}}).then(object => res.json(object)).catch(error => res.send(error));
+    Actor.destroy({where : {id: id}}).then(object => res.json(object)).catch(error => res.send(error));
 }
 
 module.exports = {
