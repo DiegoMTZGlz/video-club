@@ -1,5 +1,6 @@
 const Sequelize = require ('sequelize');
 
+const userModel = require('./models/user');
 const directorModel = require('./models/director');
 const actorModel = require('./models/actor');
 const genreModel = require('./models/genre');
@@ -7,6 +8,7 @@ const movieModel = require('./models/movie');
 const memberModel = require('./models/member');
 const movieActorModel = require('./models/movieActor');
 const copyModel = require('./models/copy');
+const bookingModel = require('./models/booking');
 
 /*
     1.- Nombre de la base de datos
@@ -20,6 +22,7 @@ const sequelize = new Sequelize('video-club', 'root', 'abcd1234', {
     dialect: 'mysql'
 });
 
+const User = userModel(sequelize, Sequelize);
 const Director = directorModel(sequelize, Sequelize);
 const Actor = actorModel(sequelize, Sequelize);
 const Genre = genreModel(sequelize, Sequelize);
@@ -27,6 +30,7 @@ const Movie = movieModel(sequelize, Sequelize);
 const Member = memberModel(sequelize, Sequelize);
 const MovieActor = movieActorModel(sequelize, Sequelize);
 const Copy = copyModel(sequelize, Sequelize);
+const Booking = bookingModel(sequelize, Sequelize);
 
 //Un genero puede tener muchas peliculas
 Genre.hasMany(Movie, {as:'movies'});
@@ -48,6 +52,12 @@ MovieActor.belongsTo(Movie, {foreignKey: 'movieId'})
 //Una pelicula tiene muchos actores
 MovieActor.belongsTo(Actor, {foreignKey: 'actorId'})
 
+//Un miembro puede tener muchas rentas
+Member.hasMany(Booking, {as: 'Bookings'})
+//Una copia puede tener miuchas rentas
+Copy.hasMany(Booking, {as: 'Bookings'})
+
+
 Movie.belongsToMany(Actor, {
     foreignKey: 'actorId',
     as: 'actors',
@@ -66,4 +76,4 @@ sequelize.sync({
     console.log('Base de datos sincornizada.')
 });
 
-module.exports = {Director, Actor, Genre, Movie, Member, Copy};
+module.exports = {User, Director, Actor, Genre, Movie, Member, Copy, Booking};
