@@ -3,25 +3,33 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
-var mongoose = require('mongoose');
 
-var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
-var directorsRouter = require('./routes/directors');
+const indexRouter = require('./routes/index');
+const usersRouter = require('./routes/users');
+const directorsRouter = require('./routes/directors');
+const actorsRouter = require('./routes/actors');
+const genresRouter = require('./routes/genres');
+const addressesRouter = require('./routes/addresses');
+const mongoose = require('mongoose');
 
 var app = express();
 
-const url = "mongodb://localhost:27017/video-club"
-mongoose.connect(url);
+// Conectar a una base de datos de mongodb
+// mongodb://<dbser>?:<dbPass>?@<url>:<port>/<dbName>
+const url = "mongodb://localhost:27017/videoclub";
+mongoose.connect(url); //como parametro en donde esta la db
 
+// ODMM
 const db = mongoose.connection;
+
+//  es un watcher, que cuando sea open haga la funcion flecha
 db.on('open', ()=>{
-  console.log("Conexión ok");
+  console.log('Conexión Ok');
 });
 
 db.on('error', ()=>{
-  console.log("No se ha podido conectar a la bd.");
-});
+  console.log('No se pudo conectar a la db');
+})
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -33,9 +41,13 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+//middlewares de enrutamiento
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
-app.use('/directors', directorsRouter)
+app.use('/directors', directorsRouter);
+app.use('/actors', actorsRouter);
+app.use('/genres', genresRouter);
+app.use('/address', addressesRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

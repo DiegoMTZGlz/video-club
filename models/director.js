@@ -1,16 +1,16 @@
 const mongoose = require('mongoose');
 
-//Schema
+// Schema: representa la coleccion que se encuentra en la db
 const schema = mongoose.Schema({
-    _name: String,
+    _name: String, // guion bajo para no teners problemas
     _lastName: String
 });
 
-//Clase
- class Director {
+// Clase: como lo vamos a mapear como objeto
+class Director {
     constructor(name, lastName){
         this._name = name;
-        this._lastName = lastName;
+        this._lastName = lastName; 
     }
 
     get name(){
@@ -22,13 +22,18 @@ const schema = mongoose.Schema({
     }
 
     get lastName(){
-        return this._name;
+        return this._lastName;
     }
-    
-    set lastName(v){
-        this._lastName = v;    
-    }
- }
 
- schema.loadClass(Director);
- module.exports = mongoose.model('Director', schema)
+    set lastName(v){
+        this._lastName = v;
+    }
+
+}
+
+
+// mezcla el esquema con la clase que creamos
+schema.loadClass(Director);
+
+// exporta el model con nombre y schema
+module.exports = mongoose.model('Director', schema);
