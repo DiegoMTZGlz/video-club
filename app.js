@@ -16,7 +16,7 @@ var app = express();
 
 // Conectar a una base de datos de mongodb
 // mongodb://<dbser>?:<dbPass>?@<url>:<port>/<dbName>
-const url = "mongodb://localhost:27017/videoclub";
+const url = "mongodb://localhost:27017/video-club";
 mongoose.connect(url); //como parametro en donde esta la db
 
 // ODMM
