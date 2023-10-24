@@ -17,7 +17,7 @@ const bookingModel = require('./models/booking');
     4.- Objeto de configuración ORM
 */
 
-const sequelize = new Sequelize('video-club', 'root', 'abcd1234', {
+const sequelize = new Sequelize('video-club.mysql.database.azure.com', 'DiegoMTZ', 'Webplatforms123', {
     host: 'localhost',
     dialect: 'mysql'
 });
