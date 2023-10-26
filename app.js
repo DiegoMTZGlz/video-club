@@ -10,6 +10,8 @@ const directorsRouter = require('./routes/directors');
 const actorsRouter = require('./routes/actors');
 const genresRouter = require('./routes/genres');
 const addressesRouter = require('./routes/addresses');
+const membersRouter = require('./routes/members');
+const moviesRouter = require('./routes/movies');
 const mongoose = require('mongoose');
 
 var app = express();
@@ -48,6 +50,8 @@ app.use('/directors', directorsRouter);
 app.use('/actors', actorsRouter);
 app.use('/genres', genresRouter);
 app.use('/address', addressesRouter);
+app.use('/members', membersRouter);
+app.use('/movies', moviesRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

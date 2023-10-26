@@ -22,7 +22,12 @@ function create(req,res,next){
 }
 
 function list(req,res,next){
-    Director.find().then(objs => res.status(200).json({
+    let page = req.params.page? req.params.page :1;
+    const options = {
+        page: page,
+        limit: 5
+    };
+    Director.paginate({},options).then(objs => res.status(200).json({
         msg: "Lista de directores",
         obj: objs
     })).catch(ex => res.status(500).json({

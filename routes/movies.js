@@ -1,10 +1,10 @@
 const express = require('express');
 const router = express.Router();
-const controller = require('../controllers/directors');
+const controller = require('../controllers/movies');
 
 router.post('/',controller.create);
 
-router.get('/list/:page?',controller.list);
+router.get('/',controller.list);
 
 router.get('/:id',controller.index);
 
