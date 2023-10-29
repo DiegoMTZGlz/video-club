@@ -1,5 +1,4 @@
 const mongoose = require('mongoose');
-const { scheduler } = require('timers/promises');
 
 const schema = mongoose.Schema({
     _name: String,

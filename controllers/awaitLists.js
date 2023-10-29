@@ -1,31 +1,33 @@
+const AwaitList = require ('../models/awaitList');
+const Member = require ('../models/member');
 const Movie = require ('../models/movie');
-const Director = require ('../models/director');
 
 async function create(req, res,next){
-    const title = req.body.title;
-    const directorId = req.body.directorId;
+    const memberId = req.body.memberId;
+    const movieId = req.body.movieId;
 
-    let director = await Director.findOne({"_id":directorId});
-    let movie = new Movie({
-            title: title,
-            director: director
+    let member = await Member.findOne({"_id":memberId});
+    let movie = await Movie.findOne({"_id":movieId});
+    let awaitList = new AwaitList({
+        member: member,
+        movie: movie
     });
 
-    movie.save().then(obj => res.status(200).json({
-        msg:"Pelicula almacenada correctamente",
+    awaitList.save().then(obj => res.status(200).json({
+        msg:"Miembro almacenado en la lista de espera correctamente",
         obj: obj
     })).catch(ex => res.status(500).json({
-        msg:"Error al almacenar la pelicula",
+        msg:"Error al almacenar el miembro en la lista de espera",
         obj: ex
     }));
 }
 
 function list(req, res, next) {
-    Movie.find().populate("_director").then(objs => res.status(200).json({
-        msg: 'Lista de peliculas',
+    AwaitList.find().then(objs => res.status(200).json({
+        msg: 'Lista de espera',
         obj: objs
     })).catch(ex => res.status(500).json({
-        msg: 'No se pudieron enlistar las peliculas',
+        msg: 'No se pudo enlistar la lista de espera',
         obj: ex
     }));
 }

@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const mongoosePaginate = require('mongoose-paginate-v2')
+const mongoosePaginate = require('mongoose-paginate-v2');
 
 // Schema: representa la coleccion que se encuentra en la db
 const schema = mongoose.Schema({
@@ -37,4 +37,4 @@ class Director {
 schema.loadClass(Director);
 schema.plugin(mongoosePaginate)
 // exporta el model con nombre y schema
-module.exports = mongoose.model('Director', schema);
+module.exports = mongoose.model('Directors', schema);

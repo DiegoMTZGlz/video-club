@@ -30,4 +30,4 @@ class Actor{
 
 schema.loadClass(Actor);
 
-module.exports = mongoose.model('Actor', schema);
+module.exports = mongoose.model('Actors', schema);

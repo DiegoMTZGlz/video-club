@@ -16,7 +16,7 @@ class Movie{
     }
 
     get title(){
-        return this._title
+        return this._title;
     }
 
     set title(v){
