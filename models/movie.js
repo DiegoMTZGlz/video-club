@@ -2,6 +2,10 @@ const mongoose = require('mongoose');
 
 const schema = mongoose.Schema({
     _title: String,
+    _genre: {
+        type: mongoose.Schema.ObjectId,
+        ref: 'Genre'
+    },
     _director: {
         type: mongoose.Schema.ObjectId,
         ref: 'Director'
@@ -9,11 +13,20 @@ const schema = mongoose.Schema({
 });
 
 class Movie{
-    constructor(title, director){
+    constructor(genre, title, director){
         this._title = title;
+        this._genre = genre;
         this._director = director;
 
     }
+
+    get genre(){
+        return this._genre;
+    }
+
+    set genre(v){
+        this._genre = v;
+    }    
 
     get title(){
         return this._title;

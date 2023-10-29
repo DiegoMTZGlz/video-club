@@ -12,7 +12,8 @@ const genresRouter = require('./routes/genres');
 const addressesRouter = require('./routes/addresses');
 const membersRouter = require('./routes/members');
 const moviesRouter = require('./routes/movies');
-const awaitListsRouter = require('./routes/awaitLists')
+const copiesRouter = require('./routes/copies');
+const awaitListsRouter = require('./routes/awaitLists');
 const mongoose = require('mongoose');
 
 var app = express();
@@ -27,11 +28,11 @@ const db = mongoose.connection;
 
 //  es un watcher, que cuando sea open haga la funcion flecha
 db.on('open', ()=>{
-  console.log('Conexión Ok');
+  console.log('Conexión aceptada');
 });
 
 db.on('error', ()=>{
-  console.log('No se pudo conectar a la db');
+  console.log('No se pudo conectar a la BD');
 })
 
 // view engine setup
@@ -53,7 +54,8 @@ app.use('/genres', genresRouter);
 app.use('/addresses', addressesRouter);
 app.use('/members', membersRouter);
 app.use('/movies', moviesRouter);
-app.use('/awaitLists', awaitListsRouter)
+app.use('/copies', copiesRouter);
+app.use('/awaitLists', awaitListsRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

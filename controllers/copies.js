@@ -1,35 +1,35 @@
+const Copy = require ('../models/copy');
 const Movie = require ('../models/movie');
-const Genre = require ('../models/genre');
-const Director = require ('../models/director');
 
 async function create(req, res,next){
-    const title = req.body.title;
-    const genreId = req.body.genreId;
-    const directorId = req.body.directorId;
+    const number = req.body.number;
+    const format = req.body.format;
+    const movieId = req.body.movieId;
+    const status = req.body.status;
 
-    let genre = await Genre.findOne({"_id":genreId});
-    let director = await Director.findOne({"_id":directorId});
-    let movie = new Movie({
-            title: title,
-            genre: genre,
-            director: director
+    let movie = await Movie.findOne({"_id":movieId});
+    let copy = new Copy({
+            number: number,
+            format: format,
+            movie: movie,
+            status: status
     });
 
-    movie.save().then(obj => res.status(200).json({
-        msg:"Pelicula almacenada correctamente",
+    copy.save().then(obj => res.status(200).json({
+        msg:"Copias almacenadas correctamente",
         obj: obj
     })).catch(ex => res.status(500).json({
-        msg:"Error al almacenar la pelicula",
+        msg:"Error al almacenar las copias",
         obj: ex
     }));
 }
 
 function list(req, res, next) {
-    Movie.find().then(objs => res.status(200).json({
-        msg: 'Lista de peliculas',
+    Copy.find().then(objs => res.status(200).json({
+        msg: 'Lista de copias',
         obj: objs
     })).catch(ex => res.status(500).json({
-        msg: 'No se pudieron enlistar las peliculas',
+        msg: 'No se pudieron enlistar las copias',
         obj: ex
     }));
 }
