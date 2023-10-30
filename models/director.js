@@ -35,6 +35,6 @@ class Director {
 
 // mezcla el esquema con la clase que creamos
 schema.loadClass(Director);
-schema.plugin(mongoosePaginate)
+schema.plugin(mongoosePaginate);
 // exporta el model con nombre y schema
 module.exports = mongoose.model('Directors', schema);

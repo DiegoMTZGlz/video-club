@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const mongoosePaginate = require('mongoose-paginate-v2');
 
 const schema = mongoose.Schema({
     _member: {
@@ -35,5 +36,6 @@ class AwaitList{
 }
 
 schema.loadClass(AwaitList);
+schema.plugin(mongoosePaginate);
 
 module.exports = mongoose.model('AwaitLists',schema);

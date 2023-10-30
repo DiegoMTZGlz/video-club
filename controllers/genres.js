@@ -10,7 +10,7 @@ function create(req, res,next){
     });
 
     genre.save().then(obj => res.status(200).json({
-        msg: 'Genre creado correctamente',
+        msg: 'Genero creado correctamente',
         obj: obj
     })).catch(ex => res.status(500).json({
         msg: 'No se pudo agregar el genero',
@@ -19,7 +19,12 @@ function create(req, res,next){
 }
 
 function list(req, res, next) {
-    Genre.find().then(objs => res.status(200).json({
+    let page = req.params.page? req.params.page :1;
+    const options = {
+        page: page,
+        limit: 5
+    };
+    Genre.paginate({},options).then(objs => res.status(200).json({
         msg: 'Lista de generos',
         obj: objs
     })).catch(ex => res.status(500).json({

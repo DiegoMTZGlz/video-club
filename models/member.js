@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const mongoosePaginate = require('mongoose-paginate-v2');
 
 const schema = mongoose.Schema({
     _name: String,
@@ -21,7 +22,7 @@ class Member {
         this._phone = phone;
         this._address = address;
     }
-
+    
     get name(){
         return this._name;
     }
@@ -32,7 +33,7 @@ class Member {
     get lastName(){
         return this._lastName;
     }
-
+    
     set lastName(v){
         return this._lastName = v;
     }
@@ -52,4 +53,6 @@ class Member {
 }
 
 schema.loadClass(Member);
+schema.plugin(mongoosePaginate);
+
 module.exports = mongoose.model('Members',schema);

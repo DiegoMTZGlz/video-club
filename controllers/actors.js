@@ -19,7 +19,12 @@ function create(req, res,next){
 }
 
 function list(req, res, next) {
-    Actor.find().then(objs => res.status(200).json({
+    let page = req.params.page? req.params.page :1;
+    const options = {
+        page: page,
+        limit: 5
+    };
+    Actor.paginate({},options).then(objs => res.status(200).json({
         msg: 'Lista de actores',
         obj: objs
     })).catch(ex => res.status(500).json({

@@ -25,7 +25,12 @@ async function create(req, res,next){
 }
 
 function list(req, res, next) {
-    Copy.find().then(objs => res.status(200).json({
+    let page = req.params.page? req.params.page :1;
+    const options = {
+        page: page,
+        limit: 5
+    };
+    Copy.paginate({},options).then(objs => res.status(200).json({
         msg: 'Lista de copias',
         obj: objs
     })).catch(ex => res.status(500).json({
@@ -36,7 +41,7 @@ function list(req, res, next) {
 
 function index(req, res,next){
     const id = req.params.id;
-    User.findOne({"_id":id}).then(obj => res.status(200).json({
+    Copy.findOne({"_id":id}).then(obj => res.status(200).json({
         msg: `User con id ${id}`,
         obj: obj
     })).catch(ex => res.status(500).json({
@@ -59,7 +64,7 @@ function replace(req, res,next){
         _password: password
     });
 
-    User.findOneAndUpdate({"_id":id}, user, {new: true}).then(obj => res.status(200).json({
+    Copy.findOneAndUpdate({"_id":id}, user, {new: true}).then(obj => res.status(200).json({
         msg: `User con id ${id} reemplazado correctamente`,
         obj: obj
     })).catch(ex => res.status(500).json({
@@ -82,7 +87,7 @@ function update(req, res,next){
     if(password) user._password = password;
 
     User.findOneAndUpdate({"_id":id}, user).then(obj => res.status(200).json({
-        msg: 'User actualizado corerctamente',
+        msg: 'User actualizado correctamente',
         obj: obj
     })).catch(ex => res.status(500).json({
         msg: `No se pudo actualizar user con id ${id}`,
@@ -92,11 +97,11 @@ function update(req, res,next){
 
 function destroy(req, res,next){
     const id = req.params.id;
-    User.findByIdAndRemove({"_id":id}).then(obj => res.status(200).json({
-        msg: `User con id ${id} eliminado`,
+    Copy.findByIdAndRemove({"_id":id}).then(obj => res.status(200).json({
+        msg: `Copias con id ${id} eliminado`,
         obj: obj
     })).catch(ex => res.status(500).json({
-        msg: `No se pudo eliminar user ${id}`,
+        msg: `No se pudo eliminar las copias: ${id}`,
         obj: ex
     }));
 }

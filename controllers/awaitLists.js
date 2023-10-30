@@ -23,7 +23,12 @@ async function create(req, res,next){
 }
 
 function list(req, res, next) {
-    AwaitList.find().then(objs => res.status(200).json({
+    let page = req.params.page? req.params.page :1;
+    const options = {
+        page: page,
+        limit: 5
+    };
+    AwaitList.paginate({},options).then(objs => res.status(200).json({
         msg: 'Lista de espera',
         obj: objs
     })).catch(ex => res.status(500).json({
@@ -34,67 +39,59 @@ function list(req, res, next) {
 
 function index(req, res,next){
     const id = req.params.id;
-    User.findOne({"_id":id}).then(obj => res.status(200).json({
-        msg: `User con id ${id}`,
+    AwaitList.findOne({"_id":id}).then(obj => res.status(200).json({
+        msg: `Reservación con id: ${id}`,
         obj: obj
     })).catch(ex => res.status(500).json({
-        msg: `No se pudo enlistar user ${id}`,
+        msg: `No se pudo enlistar la reservación: ${id}`,
         obj: ex
     }));
 }
 
 function replace(req, res,next){
     const id = req.params.id;
-    const name = req.body.name ? req.body.name : "";
-    const lastName = req.body.lastName ? req.body.lastName : "";
-    const email = req.body.email ? req.body.email : "";
-    const password = req.body.password ? req.body.password : "";
+    let memberId = req.body.memberId ? req.body.memberId : "";
+    let movieId = req.body.movieId ? req.body.movieId : "";
     
-    const user = new Object({
-        _name: name,
-        _lastName: lastName,
-        _email: email,
-        _password: password
+    let awaitList = new Object({
+        _memberId: memberId,
+        _movieId: movieId
     });
 
-    User.findOneAndUpdate({"_id":id}, user, {new: true}).then(obj => res.status(200).json({
-        msg: `User con id ${id} reemplazado correctamente`,
+    AwaitList.findOneAndUpdate({"_id":id}, awaitList, {new: true}).then(obj => res.status(200).json({
+        msg: `Reservación con id ${id} reemplazada correctamente`,
         obj: obj
     })).catch(ex => res.status(500).json({
-        msg: `No se pudo reemplazar user con id ${id}`,
+        msg: `No se pudo reemplazar la reservación con id: ${id}`,
         obj: ex
     }));
 }
 
 function update(req, res,next){
     const id = req.params.id;
-    const name = req.body.name;
-    const lastName = req.body.lastName;
-    const email = req.body.email;
-    const password = req.body.password;
+    const memberId = req.body.memberId;
+    const movieId = req.body.movieId;
 
-    const user = new Object();
-    if(name) user._name = name;
-    if(lastName) user._lastName = lastName;
-    if(email) user._email = email;
-    if(password) user._password = password;
+    const awaitList = new Object();
+    if(memberId) awaitList._memberId = memberId;
+    if(movieId) awaitList._movieId = movieId;
 
-    User.findOneAndUpdate({"_id":id}, user).then(obj => res.status(200).json({
-        msg: 'User actualizado corerctamente',
+    AwaitList.findOneAndUpdate({"_id":id}, awaitList).then(obj => res.status(200).json({
+        msg: 'Reservación actualizada correctamente',
         obj: obj
     })).catch(ex => res.status(500).json({
-        msg: `No se pudo actualizar user con id ${id}`,
+        msg: `No se pudo actualizar user con id: ${id}`,
         obj: ex
     }));
 }
 
 function destroy(req, res,next){
     const id = req.params.id;
-    User.findByIdAndRemove({"_id":id}).then(obj => res.status(200).json({
-        msg: `User con id ${id} eliminado`,
+    AwaitList.findByIdAndRemove({"_id":id}).then(obj => res.status(200).json({
+        msg: `Reservación con id ${id} eliminada`,
         obj: obj
     })).catch(ex => res.status(500).json({
-        msg: `No se pudo eliminar user ${id}`,
+        msg: `No se pudo eliminar la reservación: ${id}`,
         obj: ex
     }));
 }

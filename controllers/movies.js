@@ -25,7 +25,12 @@ async function create(req, res,next){
 }
 
 function list(req, res, next) {
-    Movie.find().then(objs => res.status(200).json({
+    let page = req.params.page? req.params.page :1;
+    const options = {
+        page: page,
+        limit: 5
+    };
+    Movie.paginate({},options).then(objs => res.status(200).json({
         msg: 'Lista de peliculas',
         obj: objs
     })).catch(ex => res.status(500).json({
@@ -92,11 +97,11 @@ function update(req, res,next){
 
 function destroy(req, res,next){
     const id = req.params.id;
-    User.findByIdAndRemove({"_id":id}).then(obj => res.status(200).json({
-        msg: `User con id ${id} eliminado`,
+    Movie.findByIdAndRemove({"_id":id}).then(obj => res.status(200).json({
+        msg: `Película con id ${id} eliminada`,
         obj: obj
     })).catch(ex => res.status(500).json({
-        msg: `No se pudo eliminar user ${id}`,
+        msg: `No se pudo eliminar la película: ${id}`,
         obj: ex
     }));
 }

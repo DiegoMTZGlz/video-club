@@ -57,7 +57,7 @@ function replace(req,res,next){
         _lastName: lastName
     })  
 
-                            // id a buscar, objeto con el que se reemplazará, si no existe lo crea
+    // id a buscar, objeto con el que se reemplazará, si no existe lo crea
     Director.findOneAndUpdate({"_id":id}, director, {new: true}).then(obj => res.status(200).json({
         msg: "Director reemplazado correctamente",
         obj: obj
