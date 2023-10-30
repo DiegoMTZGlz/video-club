@@ -2,6 +2,8 @@
 
 Práctica video-club ODM
 
+![Diagrama de Clases - ODM](./assets/DDC%20-%20ODM.png "Diagrama de Clases - ODM")
+
 ### Pre-requisítos
 
 node-js
