@@ -1,10 +1,17 @@
-# Video Club - Práctica
+# Video Club - Práctica ODM
 
-Práctica video-club
+Práctica video-club ODM
 
 ### Pre-requisítos
 
 node-js
+mongodb
+
+Usaremos el siguiente comando para instalar las dependencias del proyecto:
+
+```
+npm install
+```
 
 ### Ejecución
 
@@ -29,9 +36,13 @@ o acceder a:
 
   - [Back4App](https://videoclub-olxlme8c.b4a.run/)
 
+Podremos usar las siguientes rutas de ejemplo en:
+- [Rutas Postman](https://www.postman.com/cryosat-operator-77440515/workspace/compartir)
+
 ## Hecho con
 
   - [Node-js](https://nodejs.org/es)
+  - [MongoDB](https://www.mongodb.com)
 
 ## Autor
 
