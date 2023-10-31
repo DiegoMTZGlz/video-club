@@ -6,12 +6,12 @@ const schema = mongoose.Schema({
     _lastName: String,
     _phone: String,
     _address: {
-        _street: String,
-        _number: String,
-        _zip: Number,
-        _city: String,
-        _state: String,
-        _country: String
+        street: String,
+        number: String,
+        zip: Number,
+        city: String,
+        state: String,
+        country: String
     }
 });
 
@@ -22,35 +22,40 @@ class Member {
         this._phone = phone;
         this._address = address;
     }
-    
-    get name(){
-        return this._name;
+
+    get name(){ 
+        return this._name; 
     }
 
-    set name(v){
-        return this._name = v;
-    }
-    get lastName(){
-        return this._lastName;
-    }
-    
-    set lastName(v){
-        return this._lastName = v;
-    }
-    get phone(){
-        return this._phone;
+    set name(v){ 
+        this._name = v; 
     }
 
-    set phone(v){
-        return this._phone = v;
+    get lastName() { 
+        return this._lastName; 
+    } 
+
+    set lastName(v) { 
+        this._lastName = v; 
     }
-    get address(){
-        return this._address;
+
+    get phone() { 
+        return this._phone; 
     }
-    set address(v){
-        return this._address = v;
+
+    set phone(v) { 
+        this._phone = v; 
+    }
+
+    get address() { 
+        return this._address 
+    }
+
+    set address(v) { 
+        this._address = v; 
     }
 }
+
 
 schema.loadClass(Member);
 schema.plugin(mongoosePaginate);
