@@ -1,8 +1,11 @@
-var createError = require('http-errors');
-var express = require('express');
-var path = require('path');
-var cookieParser = require('cookie-parser');
-var logger = require('morgan');
+const createError = require('http-errors');
+const express = require('express');
+const path = require('path');
+const cookieParser = require('cookie-parser');
+const logger = require('morgan');
+const { expressjwt } = require('express-jwt');
+
+const JwtKey = "304db2483b8814fc7e60f5b2fb252749";
 
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
@@ -15,7 +18,7 @@ const copiesRouter = require('./routes/copies');
 const awaitListsRouter = require('./routes/awaitLists');
 const mongoose = require('mongoose');
 
-var app = express();
+const app = express();
 
 // Conectar a una base de datos de mongodb
 // mongodb://<dbser>?:<dbPass>?@<url>:<port>/<dbName>
@@ -43,6 +46,8 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+
+app.use(expressjwt({secret: JwtKey, algorithms: ['HS256']}).unless({path:["/login"]}));
 
 //middlewares de enrutamiento
 app.use('/', indexRouter);
