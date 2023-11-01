@@ -50,47 +50,47 @@ function index(req, res,next){
     }));
 }
 
-function replace(req, res,next){
+async function replace(req, res,next){
     const id = req.params.id;
-    const name = req.body.name ? req.body.name : "";
-    const lastName = req.body.lastName ? req.body.lastName : "";
-    const email = req.body.email ? req.body.email : "";
-    const password = req.body.password ? req.body.password : "";
-    
-    const user = new Object({
-        _name: name,
-        _lastName: lastName,
-        _email: email,
-        _password: password
+    const title = req.body.title ? req.body.title : "";
+    const genreId = req.body.genreId ? req.body.genreId : "";
+    const directorId = req.body.directorId ? req.body.directorId : "";
+    let genre = await Genre.findOne({"_id":genreId});
+    let director = await Director.findOne({"_id":directorId});    
+
+    let movie = new Object({
+            _title: title,
+            _genre: genre,
+            _director: director
     });
 
-    User.findOneAndUpdate({"_id":id}, user, {new: true}).then(obj => res.status(200).json({
-        msg: `User con id ${id} reemplazado correctamente`,
+    Movie.findOneAndUpdate({"_id":id}, movie, {new: true}).then(obj => res.status(200).json({
+        msg: `Película con id: ${id} reemplazado correctamente`,
         obj: obj
     })).catch(ex => res.status(500).json({
-        msg: `No se pudo reemplazar user con id ${id}`,
+        msg: `No se pudo reemplazar película con id: ${id}`,
         obj: ex
     }));
 }
 
-function update(req, res,next){
+async function update(req, res,next){
     const id = req.params.id;
-    const name = req.body.name;
-    const lastName = req.body.lastName;
-    const email = req.body.email;
-    const password = req.body.password;
+    const title = req.body.title;
+    const genreId = req.body.genreId;
+    const directorId = req.body.directorId;
+    let genre = await Genre.findOne({"_id":genreId});
+    let director = await Director.findOne({"_id":directorId});  
 
-    const user = new Object();
-    if(name) user._name = name;
-    if(lastName) user._lastName = lastName;
-    if(email) user._email = email;
-    if(password) user._password = password;
+    const movie = new Object();
+    if(title) movie._title = title;
+    if(genreId) movie._genre = genre;
+    if(directorId) movie._director = director;
 
-    User.findOneAndUpdate({"_id":id}, user).then(obj => res.status(200).json({
-        msg: 'User actualizado corerctamente',
+    Movie.findOneAndUpdate({"_id":id}, movie).then(obj => res.status(200).json({
+        msg: 'Película actualizada corerctamente',
         obj: obj
     })).catch(ex => res.status(500).json({
-        msg: `No se pudo actualizar user con id ${id}`,
+        msg: `No se pudo actualizar la película con id ${id}`,
         obj: ex
     }));
 }

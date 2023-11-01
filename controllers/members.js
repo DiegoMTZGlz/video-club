@@ -1,5 +1,4 @@
 const Member = require('../models/member');
-const User = require ('../models/member');
 
 function create(req, res,next){
     let name = req.body.name;
@@ -63,12 +62,12 @@ function replace(req, res,next){
     const phone = req.body.phone ? req.body.phone : "";
     
     let address = new Object();
-    address.street = req.body.street;
-    address.number = req.body.number;
-    address.zip = req.body.zip;
-    address.city = req.body.city;
-    address.state = req.body.state;
-    address.country = req.body.country
+    address.street = req.body.street ? req.body.street : "";
+    address.number = req.body.number ? req.body.number : "";
+    address.zip = req.body.zip ? req.body.zip : "";
+    address.city = req.body.city ? req.body.city : "";
+    address.state = req.body.state ? req.body.state : "";
+    address.country = req.body.country ? req.body.country : "";
     
     const member = new Object({
         _name: name,
@@ -88,9 +87,9 @@ function replace(req, res,next){
 
 function update(req, res,next){
     const id = req.params.id;
-    const name = req.body.name ? req.body.name : "";
-    const lastName = req.body.lastName ? req.body.lastName : "";
-    const phone = req.body.phone ? req.body.phone : "";
+    const name = req.body.name;
+    const lastName = req.body.lastName;
+    const phone = req.body.phone;
     
     let address = new Object();
     address.street = req.body.street;

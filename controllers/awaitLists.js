@@ -48,14 +48,16 @@ function index(req, res,next){
     }));
 }
 
-function replace(req, res,next){
+async function replace(req, res,next){
     const id = req.params.id;
     let memberId = req.body.memberId ? req.body.memberId : "";
     let movieId = req.body.movieId ? req.body.movieId : "";
+    let member = await Member.findOne({"_id":memberId});
+    let movie = await Movie.findOne({"_id":movieId});
     
     let awaitList = new Object({
-        _memberId: memberId,
-        _movieId: movieId
+        _member: member,
+        _movie: movie
     });
 
     AwaitList.findOneAndUpdate({"_id":id}, awaitList, {new: true}).then(obj => res.status(200).json({
@@ -67,14 +69,16 @@ function replace(req, res,next){
     }));
 }
 
-function update(req, res,next){
+async function update(req, res,next){
     const id = req.params.id;
     const memberId = req.body.memberId;
     const movieId = req.body.movieId;
+    let member = await Member.findOne({"_id":memberId});
+    let movie = await Movie.findOne({"_id":movieId});
 
     const awaitList = new Object();
-    if(memberId) awaitList._memberId = memberId;
-    if(movieId) awaitList._movieId = movieId;
+    if(memberId) awaitList._member = member;
+    if(movieId) awaitList._movie = movie;
 
     AwaitList.findOneAndUpdate({"_id":id}, awaitList).then(obj => res.status(200).json({
         msg: 'Reservación actualizada correctamente',
