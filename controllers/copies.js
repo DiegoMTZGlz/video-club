@@ -16,10 +16,10 @@ async function create(req, res,next){
     });
 
     copy.save().then(obj => res.status(200).json({
-        msg:"Copias almacenadas correctamente",
+        msg:"Copia(s) almacenada(s) correctamente",
         obj: obj
     })).catch(ex => res.status(500).json({
-        msg:"Error al almacenar las copias",
+        msg:"Error al almacenar la/las copia(s)",
         obj: ex
     }));
 }
@@ -34,7 +34,7 @@ function list(req, res, next) {
         msg: 'Lista de copias',
         obj: objs
     })).catch(ex => res.status(500).json({
-        msg: 'No se pudieron enlistar las copias',
+        msg: 'No se pudo/pudieron enlistar la/las copia(s)',
         obj: ex
     }));
 }
@@ -42,55 +42,57 @@ function list(req, res, next) {
 function index(req, res,next){
     const id = req.params.id;
     Copy.findOne({"_id":id}).then(obj => res.status(200).json({
-        msg: `User con id ${id}`,
+        msg: `Copia(s) con id: ${id}`,
         obj: obj
     })).catch(ex => res.status(500).json({
-        msg: `No se pudo enlistar user ${id}`,
+        msg: `No se pudo/pudieron enlistar la/las copia(s) ${id}`,
         obj: ex
     }));
 }
 
-function replace(req, res,next){
+async function replace(req, res,next){
     const id = req.params.id;
-    const name = req.body.name ? req.body.name : "";
-    const lastName = req.body.lastName ? req.body.lastName : "";
-    const email = req.body.email ? req.body.email : "";
-    const password = req.body.password ? req.body.password : "";
-    
-    const user = new Object({
-        _name: name,
-        _lastName: lastName,
-        _email: email,
-        _password: password
+    const number = req.body.number ? req.body.number : "";
+    const format = req.body.format ? req.body.format : "";
+    const movieId = req.body.movieId ? req.body.movieId : "";
+    const status = req.body.status ? req.body.status : "";
+
+    let movie = await Movie.findOne({"_id":movieId});
+    const copy = new Object({
+        _number: number,
+        _format: format,
+        _movie: movie,
+        _status: status
     });
 
-    Copy.findOneAndUpdate({"_id":id}, user, {new: true}).then(obj => res.status(200).json({
-        msg: `User con id ${id} reemplazado correctamente`,
+    Copy.findOneAndUpdate({"_id":id}, copy, {new: true}).then(obj => res.status(200).json({
+        msg: `Copia(s) con id: ${id} reemplazada(s) correctamente`,
         obj: obj
     })).catch(ex => res.status(500).json({
-        msg: `No se pudo reemplazar user con id ${id}`,
+        msg: `No se pudieron reemplazar user con id ${id}`,
         obj: ex
     }));
 }
 
-function update(req, res,next){
+async function update(req, res,next){
     const id = req.params.id;
-    const name = req.body.name;
-    const lastName = req.body.lastName;
-    const email = req.body.email;
-    const password = req.body.password;
+    const number = req.body.number;
+    const format = req.body.format;
+    const movieId = req.body.movieId;
+    const status = req.body.status;
 
-    const user = new Object();
-    if(name) user._name = name;
-    if(lastName) user._lastName = lastName;
-    if(email) user._email = email;
-    if(password) user._password = password;
+    let movie = await Movie.findOne({"_id":movieId});
+    const copy = new Object();
+    if(number) copy._number = number;
+    if(format) copy._format = format;
+    if(movieId) copy._movie = movie;
+    if(status) copy._status = status;
 
-    User.findOneAndUpdate({"_id":id}, user).then(obj => res.status(200).json({
-        msg: 'User actualizado correctamente',
+    Copy.findOneAndUpdate({"_id":id}, copy).then(obj => res.status(200).json({
+        msg: 'Copia(s) actualizada(s) correctamente',
         obj: obj
     })).catch(ex => res.status(500).json({
-        msg: `No se pudo actualizar user con id ${id}`,
+        msg: `No se pudo/puediron actualizar la/las copia(s) con id: ${id}`,
         obj: ex
     }));
 }
@@ -98,10 +100,10 @@ function update(req, res,next){
 function destroy(req, res,next){
     const id = req.params.id;
     Copy.findByIdAndRemove({"_id":id}).then(obj => res.status(200).json({
-        msg: `Copias con id ${id} eliminado`,
+        msg: `Copia(s) con id: ${id} eliminada(s)`,
         obj: obj
     })).catch(ex => res.status(500).json({
-        msg: `No se pudo eliminar las copias: ${id}`,
+        msg: `No se pudo/pudieron eliminar la/las copia(s): ${id}`,
         obj: ex
     }));
 }
