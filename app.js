@@ -25,7 +25,7 @@ const app = express();
 const url = "mongodb://localhost:27017/video-club";
 mongoose.connect(url); //como parametro en donde esta la db
 
-// ODMM
+// ODM
 const db = mongoose.connection;
 
 //  es un watcher, que cuando sea open haga la funcion flecha
