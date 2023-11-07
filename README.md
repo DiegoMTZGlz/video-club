@@ -1,8 +1,8 @@
-# Video Club - Práctica ODM
+# Video Club - Práctica ACL
 
-Práctica video-club ODM
+Práctica video-club ACL
 
-![Diagrama de Clases - ODM](./assets/DDC%20-%20ODM.png "Diagrama de Clases - ODM")
+![Diagrama de Clases - ACL](./assets/ACL.png "Diagrama de Clases - ACL")
 
 ### Pre-requisítos
 
@@ -45,8 +45,11 @@ Podremos usar las siguientes rutas de ejemplo en:
 
   - [Node-js](https://nodejs.org/es)
   - [MongoDB](https://www.mongodb.com)
+  - [ACL](https://www.npmjs.com/package/acl).
 
-## Autor
+## Autores
 
   - *Diego Martínez* -
     [DiegoMTZGlez](https://github.com/DiegoMTZGlz)
+  - *Daniel Lozano* -
+    [Daniel](https://gitlab.com/a348603)

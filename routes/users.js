@@ -1,9 +1,10 @@
 const express = require('express');
 const router = express.Router();
 const controller = require('../controllers/users');
+const { login } = require('../controllers');
 
 /* GET users listing. */
-router.post('/', controller.create)
+router.post('/', controller.create);
 
 router.get('/',controller.list);    // la jerarquia importa, por url, el que esta primera es el que se va a ejecutar
                                     // el orden de los controladores afecto la funcion final.

@@ -29,7 +29,7 @@ mongoose.connect(url); //como parametro en donde esta la db
 const db = mongoose.connection;
 
 //  es un watcher, que cuando sea open haga la funcion flecha
-db.on('open', ()=>{
+db.once('open', ()=>{
   console.log('Conexión aceptada');
 });
 
@@ -47,7 +47,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use(expressjwt({secret: JwtKey, algorithms: ['HS256']}).unless({path:["/login"]}));
+//app.use(expressjwt({secret: JwtKey, algorithms: ['HS256']}).unless({path:["/login"]}));
 
 //middlewares de enrutamiento
 app.use('/', indexRouter);
