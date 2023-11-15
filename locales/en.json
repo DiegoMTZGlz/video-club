@@ -1,0 +1,5 @@
+{
+    "conn.ok": "Conection sucess",
+    "login.ok": "Login success",
+    "login.wrong": "User or password does not match"
+}

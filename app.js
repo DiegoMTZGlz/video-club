@@ -4,8 +4,10 @@ const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const { expressjwt } = require('express-jwt');
+const config = require('config');
+const i18n = require('i18n');
 
-const JwtKey = "304db2483b8814fc7e60f5b2fb252749";
+const JwtKey = config.get('secret.key');
 
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
@@ -22,7 +24,7 @@ const app = express();
 
 // Conectar a una base de datos de mongodb
 // mongodb://<dbser>?:<dbPass>?@<url>:<port>/<dbName>
-const url = "mongodb://localhost:27017/video-club";
+const url = config.get("dbChain");
 mongoose.connect(url); //como parametro en donde esta la db
 
 // ODM
@@ -37,6 +39,12 @@ db.on('error', ()=>{
   console.log('No se pudo conectar a la BD');
 })
 
+i18n.configure({
+  locales: ['es', 'en'],
+  cookie: 'language',
+  directory: `${__dirname}/locales`
+});
+
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
@@ -46,7 +54,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-
+app.use(i18n.init);
 app.use(expressjwt({secret: JwtKey, algorithms: ['HS256']}).unless({path:["/login"]}));
 
 //middlewares de enrutamiento

@@ -1,0 +1,5 @@
+{
+    "conn.ok": "Conexión aceptada",
+    "login.ok": "Sesión iniciada correctamente",
+    "login.wrong": "Usuario y/o contraseña incorrectos"
+}
