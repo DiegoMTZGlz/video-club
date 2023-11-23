@@ -5,7 +5,7 @@
   "scripts": {
     "start": "export NODE_ENV=production; node ./bin/www",
     "dev": "node ./bin/www",
-    "test": "./node_modules/.bin/jest --verbose" 
+    "test": "./node_modules/.bin/jest --runInBand --verbose" 
   },
   "dependencies": {
     "bcrypt": "^5.1.1",

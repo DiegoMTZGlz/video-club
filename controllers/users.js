@@ -19,10 +19,10 @@ async function create(req, res,next){
     });
 
     user.save().then(obj => res.status(200).json({
-        msg: 'Usuario creado correctamente',
+        msg: res.__('users.create.ok'),
         obj: obj
     })).catch(ex => res.status(500).json({
-        msg:'Error al crear usuario',
+        msg: res.__('users.create.wrong'),
         obj: ex
     }));
 }
@@ -34,10 +34,10 @@ function list(req, res, next) {
         limit: 5
     };
     User.paginate({},options).then(objs => res.status(200).json({
-        msg: 'Lista de usuarios',
+        msg: res.__('users.list.ok'),
         obj: objs
     })).catch(ex => res.status(500).json({
-        msg: 'No se pudieron enlistar los usuarios',
+        msg: res.__('users.list.wrong'),
         obj: ex
     }));
 }
@@ -45,10 +45,10 @@ function list(req, res, next) {
 function index(req, res,next){
     const id = req.params.id;
     User.findOne({"_id":id}).then(obj => res.status(200).json({
-        msg: `Ususario con id ${id}`,
+        msg: res.__('users.index.ok')+`${id}`,
         obj: obj
     })).catch(ex => res.status(500).json({
-        msg: `No se pudo enlistar usuario: ${id}`,
+        msg: res.__('users.index.wrong')+`${id}`,
         obj: ex
     }));
 }
@@ -71,10 +71,10 @@ async function replace(req, res,next){
     });
 
     User.findOneAndUpdate({"_id":id}, user, {new: true}).then(obj => res.status(200).json({
-        msg: `Usuario con id: ${id} reemplazado correctamente`,
+        msg: res.__('users.replace.ok')+`${id}`,
         obj: obj
     })).catch(ex => res.status(500).json({
-        msg: `No se pudo reemplazar usuario con id: ${id}`,
+        msg: res.__('users.replace.wrong')+`${id}`,
         obj: ex
     }));
 }
@@ -96,10 +96,10 @@ async function update(req, res,next){
     if(password) user._password = passwordHash;
 
     User.findOneAndUpdate({"_id":id}, user).then(obj => res.status(200).json({
-        msg: 'Usuario actualizado corerctamente',
+        msg: res.__('users.update.ok'),
         obj: obj
     })).catch(ex => res.status(500).json({
-        msg: `No se pudo actualizar usuario con id ${id}`,
+        msg: res.__('users.update.wrong')+`${id}`,
         obj: ex
     }));
 }
@@ -107,10 +107,10 @@ async function update(req, res,next){
 function destroy(req, res,next){
     const id = req.params.id;
     User.findByIdAndRemove({"_id":id}).then(obj => res.status(200).json({
-        msg: `Usuario con id ${id} eliminado`,
+        msg: res.__('users.delete.ok')+`${id}`,
         obj: obj
     })).catch(ex => res.status(500).json({
-        msg: `No se pudo eliminar usuario ${id}`,
+        msg:  res.__('users.delete.wrong')+`${id}`,
         obj: ex
     }));
 }

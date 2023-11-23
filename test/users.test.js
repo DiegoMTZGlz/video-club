@@ -53,7 +53,7 @@ describe("Probar obtener usuarios", ()=>{
         });
     });
 
-    it("No debería listar los usuarios correctamente", (done)=>{
+    it("No debería listar los usuarios", (done)=>{
         supertest(app).get("/users").expect(401).end(function(err, res){
             if(err){
                 done(err);
@@ -149,7 +149,7 @@ describe("Probar actualizar usuarios", ()=>{
 });
 
 describe("Probar eliminar usuarios", ()=>{
-    it("Debería listar los usuarios correctamente", (done)=>{
+    it("Debería eliminar un usuario correctamente", (done)=>{
         supertest(app).delete("/users/65581d0a4e53124230b298fc").set('Authorization', `Bearer ${token}`)
         .expect(200).end(function(err, res){
             if(err){
@@ -160,7 +160,7 @@ describe("Probar eliminar usuarios", ()=>{
         });
     });
 
-    it("Debería listar los usuarios correctamente", (done)=>{
+    it("No debería eliminar ningún usuario", (done)=>{
         supertest(app).delete("/users:65581d0a4e53124230b298fc").set('Authorization', `Bearer ${token}`)
         .expect(404).end(function(err, res){
             if(err){

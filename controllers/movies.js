@@ -16,10 +16,10 @@ async function create(req, res,next){
     });
 
     movie.save().then(obj => res.status(200).json({
-        msg:"Pelicula almacenada correctamente",
+        msg: res.__('movies.create.ok'),
         obj: obj
     })).catch(ex => res.status(500).json({
-        msg:"Error al almacenar la pelicula",
+        msg: res.__('movies.create.wrong'),
         obj: ex
     }));
 }
@@ -31,10 +31,10 @@ function list(req, res, next) {
         limit: 5
     };
     Movie.paginate({},options).then(objs => res.status(200).json({
-        msg: 'Lista de peliculas',
+        msg: res.__('movies.list.ok'),
         obj: objs
     })).catch(ex => res.status(500).json({
-        msg: 'No se pudieron enlistar las peliculas',
+        msg: res.__('movies.list.wrong'),
         obj: ex
     }));
 }
@@ -42,10 +42,10 @@ function list(req, res, next) {
 function index(req, res,next){
     const id = req.params.id;
     User.findOne({"_id":id}).then(obj => res.status(200).json({
-        msg: `User con id ${id}`,
+        msg: res.__('movies.index.ok')+`${id}`,
         obj: obj
     })).catch(ex => res.status(500).json({
-        msg: `No se pudo enlistar user ${id}`,
+        msg: res.__('movies.index.wrong')+`${id}`,
         obj: ex
     }));
 }
@@ -65,10 +65,10 @@ async function replace(req, res,next){
     });
 
     Movie.findOneAndUpdate({"_id":id}, movie, {new: true}).then(obj => res.status(200).json({
-        msg: `Película con id: ${id} reemplazado correctamente`,
+        msg: res.__('movies.replace.ok')+`${id}`,
         obj: obj
     })).catch(ex => res.status(500).json({
-        msg: `No se pudo reemplazar película con id: ${id}`,
+        msg: res.__('movies.replace.wrong')+`${id}`,
         obj: ex
     }));
 }
@@ -87,10 +87,10 @@ async function update(req, res,next){
     if(directorId) movie._director = director;
 
     Movie.findOneAndUpdate({"_id":id}, movie).then(obj => res.status(200).json({
-        msg: 'Película actualizada corerctamente',
+        msg: res.__('movies.update.ok'),
         obj: obj
     })).catch(ex => res.status(500).json({
-        msg: `No se pudo actualizar la película con id ${id}`,
+        msg: res.__('movies.update.wrong')+`${id}`,
         obj: ex
     }));
 }
@@ -98,10 +98,10 @@ async function update(req, res,next){
 function destroy(req, res,next){
     const id = req.params.id;
     Movie.findByIdAndRemove({"_id":id}).then(obj => res.status(200).json({
-        msg: `Película con id ${id} eliminada`,
+        msg: res.__('movies.destroy.ok')+`${id}`,
         obj: obj
     })).catch(ex => res.status(500).json({
-        msg: `No se pudo eliminar la película: ${id}`,
+        msg: res.__('movies.destroy.wrong')+`${id}`,
         obj: ex
     }));
 }
