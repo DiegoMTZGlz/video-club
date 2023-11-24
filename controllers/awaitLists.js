@@ -14,10 +14,10 @@ async function create(req, res,next){
     });
 
     awaitList.save().then(obj => res.status(200).json({
-        msg:"Miembro almacenado en la lista de espera correctamente",
+        msg: res.__('awaitLists.create.ok'),
         obj: obj
     })).catch(ex => res.status(500).json({
-        msg:"Error al almacenar el miembro en la lista de espera",
+        msg: res.__('awaitLists.create.wrong'),
         obj: ex
     }));
 }
@@ -29,10 +29,10 @@ function list(req, res, next) {
         limit: 5
     };
     AwaitList.paginate({},options).then(objs => res.status(200).json({
-        msg: 'Lista de espera',
+        msg: res.__('awaitLists.list.ok'),
         obj: objs
     })).catch(ex => res.status(500).json({
-        msg: 'No se pudo enlistar la lista de espera',
+        msg: res.__('awaitLists.list.wrong'),
         obj: ex
     }));
 }
@@ -40,10 +40,10 @@ function list(req, res, next) {
 function index(req, res,next){
     const id = req.params.id;
     AwaitList.findOne({"_id":id}).then(obj => res.status(200).json({
-        msg: `Reservación con id: ${id}`,
+        msg: res.__('awaitLists.index.ok')+`${id}`,
         obj: obj
     })).catch(ex => res.status(500).json({
-        msg: `No se pudo enlistar la reservación: ${id}`,
+        msg: res.__('awaitLists.create.ok')`${id}`,
         obj: ex
     }));
 }
@@ -61,10 +61,10 @@ async function replace(req, res,next){
     });
 
     AwaitList.findOneAndUpdate({"_id":id}, awaitList, {new: true}).then(obj => res.status(200).json({
-        msg: `Reservación con id ${id} reemplazada correctamente`,
+        msg: res.__('awaitLists.replace.ok')+`${id}`,
         obj: obj
     })).catch(ex => res.status(500).json({
-        msg: `No se pudo reemplazar la reservación con id: ${id}`,
+        msg: res.__('awaitLists.replace.wrong')+`${id}`,
         obj: ex
     }));
 }
@@ -81,10 +81,10 @@ async function update(req, res,next){
     if(movieId) awaitList._movie = movie;
 
     AwaitList.findOneAndUpdate({"_id":id}, awaitList).then(obj => res.status(200).json({
-        msg: 'Reservación actualizada correctamente',
+        msg: res.__('awaitLists.update.ok'),
         obj: obj
     })).catch(ex => res.status(500).json({
-        msg: `No se pudo actualizar user con id: ${id}`,
+        msg: res.__('awaitLists.update.wrong')+`${id}`,
         obj: ex
     }));
 }
@@ -92,10 +92,10 @@ async function update(req, res,next){
 function destroy(req, res,next){
     const id = req.params.id;
     AwaitList.findByIdAndRemove({"_id":id}).then(obj => res.status(200).json({
-        msg: `Reservación con id ${id} eliminada`,
+        msg: res.__('awaitLists.destroy.ok')+`${id}`,
         obj: obj
     })).catch(ex => res.status(500).json({
-        msg: `No se pudo eliminar la reservación: ${id}`,
+        msg: res.__('awaitLists.destroy.wrong')`${id}`,
         obj: ex
     }));
 }

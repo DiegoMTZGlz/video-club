@@ -16,10 +16,10 @@ async function create(req, res,next){
     });
 
     copy.save().then(obj => res.status(200).json({
-        msg:"Copia(s) almacenada(s) correctamente",
+        msg: res.__('copies.create.ok'),
         obj: obj
     })).catch(ex => res.status(500).json({
-        msg:"Error al almacenar la/las copia(s)",
+        msg: res.__('copies.create.wrong'),
         obj: ex
     }));
 }
@@ -31,10 +31,10 @@ function list(req, res, next) {
         limit: 5
     };
     Copy.paginate({},options).then(objs => res.status(200).json({
-        msg: 'Lista de copias',
+        msg: res.__('copies.list.ok'),
         obj: objs
     })).catch(ex => res.status(500).json({
-        msg: 'No se pudo/pudieron enlistar la/las copia(s)',
+        msg: res.__('copies.list.wrong'),
         obj: ex
     }));
 }
@@ -42,10 +42,10 @@ function list(req, res, next) {
 function index(req, res,next){
     const id = req.params.id;
     Copy.findOne({"_id":id}).then(obj => res.status(200).json({
-        msg: `Copia(s) con id: ${id}`,
+        msg: res.__('copies.index.ok')+`${id}`,
         obj: obj
     })).catch(ex => res.status(500).json({
-        msg: `No se pudo/pudieron enlistar la/las copia(s) ${id}`,
+        msg: res.__('copies.index.wrong')+`${id}`,
         obj: ex
     }));
 }
@@ -66,10 +66,10 @@ async function replace(req, res,next){
     });
 
     Copy.findOneAndUpdate({"_id":id}, copy, {new: true}).then(obj => res.status(200).json({
-        msg: `Copia(s) con id: ${id} reemplazada(s) correctamente`,
+        msg: res.__('copies.replace.ok')+`${id}`,
         obj: obj
     })).catch(ex => res.status(500).json({
-        msg: `No se pudieron reemplazar user con id ${id}`,
+        msg: res.__('copies.replace.wrong')+`${id}`,
         obj: ex
     }));
 }
@@ -89,10 +89,10 @@ async function update(req, res,next){
     if(status) copy._status = status;
 
     Copy.findOneAndUpdate({"_id":id}, copy).then(obj => res.status(200).json({
-        msg: 'Copia(s) actualizada(s) correctamente',
+        msg: res.__('copies.update.ok'),
         obj: obj
     })).catch(ex => res.status(500).json({
-        msg: `No se pudo/puediron actualizar la/las copia(s) con id: ${id}`,
+        msg: res.__('copies.update.wrong')+`${id}`,
         obj: ex
     }));
 }
@@ -100,10 +100,10 @@ async function update(req, res,next){
 function destroy(req, res,next){
     const id = req.params.id;
     Copy.findByIdAndRemove({"_id":id}).then(obj => res.status(200).json({
-        msg: `Copia(s) con id: ${id} eliminada(s)`,
+        msg: res.__('copies.destroy.ok')+`${id}`,
         obj: obj
     })).catch(ex => res.status(500).json({
-        msg: `No se pudo/pudieron eliminar la/las copia(s): ${id}`,
+        msg: res.__('copies.destroy.wrong')+`${id}`,
         obj: ex
     }));
 }

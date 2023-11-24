@@ -107,10 +107,10 @@ async function update(req, res,next){
 function destroy(req, res,next){
     const id = req.params.id;
     User.findByIdAndRemove({"_id":id}).then(obj => res.status(200).json({
-        msg: res.__('users.delete.ok')+`${id}`,
+        msg: res.__('users.destroy.ok')+`${id}`,
         obj: obj
     })).catch(ex => res.status(500).json({
-        msg:  res.__('users.delete.wrong')+`${id}`,
+        msg:  res.__('users.destroy.wrong')+`${id}`,
         obj: ex
     }));
 }

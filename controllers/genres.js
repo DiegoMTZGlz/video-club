@@ -10,10 +10,10 @@ function create(req, res,next){
     });
 
     genre.save().then(obj => res.status(200).json({
-        msg: 'Genero creado correctamente',
+        msg: res.__('genres.create.ok'),
         obj: obj
     })).catch(ex => res.status(500).json({
-        msg: 'No se pudo agregar el genero',
+        msg: res.__('genres.create.wrong'),
         obj: ex
     }));
 }
@@ -25,10 +25,10 @@ function list(req, res, next) {
         limit: 5
     };
     Genre.paginate({},options).then(objs => res.status(200).json({
-        msg: 'Lista de generos',
+        msg: res.__('genres.list.ok'),
         obj: objs
     })).catch(ex => res.status(500).json({
-        msg: 'No se pudieron enlistar generos',
+        msg: res.__('genres.list.wrong'),
         obj: ex
     }));
 }
@@ -36,10 +36,10 @@ function list(req, res, next) {
 function index(req, res,next){
     const id = req.params.id;
     Genre.findOne({"_id":id}).then(obj => res.status(200).json({
-        msg: `Genero con id ${id}`,
+        msg: res.__('genres.index.ok')+`${id}`,
         obj:obj
     })).catch(ex => res.status(500).json({
-        msg: `No se pudo eliminar genero con id ${id}`,
+        msg: res.__('genres.index.wrong')+`${id}`,
         obj: ex
     }));
 }
@@ -55,10 +55,10 @@ function replace(req, res,next){
     });
 
     Genre.findOneAndUpdate({"_id":id},genre, {new: true}).then(obj => res.status(200).json({
-        msg: `Genero reemplazado exitosamente`,
+        msg: res.__('genres.replace.ok')+`${id}`,
         obj: obj
     })).catch(ex => res.status(500).json({
-        msg: `Genero con id ${id} no se pudo reemplazar`,
+        msg: res.__('genres.replace.wrong')+`${id}`,
         obj: ex
     }));
 }
@@ -73,10 +73,10 @@ function update(req, res,next){
     if(status) genre._status = status;
 
     Genre.findOneAndUpdate({"_id":id},genre).then(obj => res.status(200).json({
-        msg: `Genero con id ${id} actualizado correctamente`,
+        msg: res.__('genres.update.ok')+`${id}`,
         obj: obj
     })).catch(ex => res.status(500).json({
-        msg: `Genero con id ${id} no se pudo actualizar`,
+        msg: res.__('genres.update.wrong')+`${id}`,
         obj: ex
     }));
 }
@@ -84,10 +84,10 @@ function update(req, res,next){
 function destroy(req, res,next){
     const id = req.params.id;
     Genre.findByIdAndRemove({"_id":id}).then(obj => res.status(200).json({
-        msg: `Genero con ${id} eliminado correctamente`,
+        msg: res.__('genres.destroy.ok')+`${id}`,
         obj: obj
     })).catch(ex => res.status(500).json({
-        msg: `Genero con id ${id} no se pudo eliminar`,
+        msg: res.__('genres.destroy.wrong')+`${id}`,
         obj: ex
     }));
 }
